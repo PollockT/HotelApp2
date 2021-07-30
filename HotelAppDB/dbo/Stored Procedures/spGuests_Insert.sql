@@ -1,17 +1,18 @@
 ﻿CREATE PROCEDURE [dbo].[spGuests_Insert]
-	@firstName nvarchar(50),
-	@lastName nvarchar(50)
+	@firstName NVARCHAR(50),
+	@lastName NVARCHAR(50)
 AS
-begin
-	set nocount on;
+BEGIN
+	SET NOCOUNT ON;
 
-	if not exists (select 1 from dbo.Guests where FirstName = @firstName and LastName = @lastName)
-	begin
-		insert into dbo.Guests (FirstName, LastName)
-		values (@firstName, @lastName);
-	end
+	IF NOT EXISTS(SELECT 1 FROM dbo.Guests WHERE FirstName = @firstName AND LastName = @lastName)
+	BEGIN
+		INSERT INTO dbo.Guests (FirstName, LastName)
+			VALUES(@firstName, @lastName);	
+	END
 
-	select top 1 [Id], [FirstName], [LastName]
-	from dbo.Guests
-	where FirstName = @firstName and LastName = @lastName;
-end
+	SELECT TOP 1 [Id], [FirstName], [LastName]
+	FROM dbo.Guests
+		WHERE FirstName = @firstName AND LastName = @lastName;
+
+END
